@@ -1,9 +1,6 @@
 package edu.stanford.smi.protegex.owl.ui.widget;
 
-import edu.stanford.smi.protege.model.Cls;
-import edu.stanford.smi.protege.model.Facet;
-import edu.stanford.smi.protege.model.Instance;
-import edu.stanford.smi.protege.model.Slot;
+import edu.stanford.smi.protege.model.*;
 import edu.stanford.smi.protege.util.CollectionUtilities;
 import edu.stanford.smi.protege.util.Log;
 import edu.stanford.smi.protege.widget.TextFieldWidget;
@@ -13,10 +10,6 @@ import org.apache.commons.validator.routines.UrlValidator;
 
 import java.util.Collection;
 import java.util.logging.Logger;
-
-import static edu.stanford.smi.protegex.owl.model.impl.DefaultRDFSLiteral.DATATYPE_PREFIX;
-import static edu.stanford.smi.protegex.owl.model.impl.DefaultRDFSLiteral.LANGUAGE_PREFIX;
-import static edu.stanford.smi.protegex.owl.model.impl.DefaultRDFSLiteral.SEPARATOR;
 
 /**
  * A widget to generate class hierarchy URI for the individuals upon creation.
@@ -35,17 +28,23 @@ public class ClassHierarchyURIWidget extends TextFieldWidget {
     /*
       This widget will show up only if the range defined in the given slot is of datatype xsd:anyURI.
      */
-    public static boolean isSuitable(Cls cls, Slot slot, Facet facet) {
+    /*public static boolean isSuitable(Cls cls, Slot slot, Facet facet) {
         if(slot instanceof RDFProperty){
             RDFProperty classHierarchySlot = (RDFProperty)slot;
-            if(classHierarchySlot.hasRange(false) &&
-                    classHierarchySlot.getRangeDatatype().getName()
-                            .equals(classHierarchySlot.getOWLModel().getXSDanyURI().getName())){
-                return true;
+            if(classHierarchySlot.isRangeDefined()) {
+                if(classHierarchySlot.getRangeDatatype().equals(classHierarchySlot.getOWLModel().getXSDanyURI())) {
+                    return true;
+                }
+
             }
         }
         return false;
+    }*/
+
+    public static boolean isSuitable(Class clazz, Cls cls, Slot slot) {
+       return OWLWidgetMapper.isSuitable(clazz, cls, slot);
     }
+
 
     /**
      * Check for URI validity without fragment
@@ -102,27 +101,10 @@ public class ClassHierarchyURIWidget extends TextFieldWidget {
 
     @Override
     public void setText(String s) {
-        String plainText = stripDatatype(s);
+        String plainText = InstanceUtil.stripDatatype(s);
         super.setText(plainText);
     }
 
-
-    /**
-     * We know that value of this widget is of data type xsd:anyURI and there is no need for users to see
-     * the full URI including datatype in the UI. Therefore, we are stripping out datatype part for easy readability.
-
-     * @param rawValue a string with data type
-     *                 example: ~@http://www.w3.org/2001/XMLSchema#anyURI http://data.ub.uib.no/instance/document/ubb-ms-02
-     *
-     * @return a string where datatype is stripped.
-     *                 example: http://data.ub.uib.no/instance/document/ubb-ms-02
-     */
-    protected static String stripDatatype(String rawValue) {
-        if (rawValue.startsWith(LANGUAGE_PREFIX) || rawValue.startsWith(DATATYPE_PREFIX)) {
-            return rawValue.substring(rawValue.indexOf(SEPARATOR) + 1).trim();
-        }
-        return rawValue;
-    }
 
     /**
      * Assign slot value to a corresponding individual.
@@ -148,7 +130,7 @@ public class ClassHierarchyURIWidget extends TextFieldWidget {
      * Get RDF property (this slot)
      */
     private RDFProperty getPredicate() {
-        return getOWLModel().getRDFProperty(UBBSlotNames.CLASS_HIERARCHY_URI);
+        return getOWLModel().getRDFProperty(UBBOntologyNamespaces.CLASS_HIERARCHY_URI);
     }
 
     /**
@@ -172,7 +154,7 @@ public class ClassHierarchyURIWidget extends TextFieldWidget {
     private String getId() {
         //Process identifier slot
         Instance instance = this.getInstance();
-        Slot identifierSlot = getKnowledgeBase().getSlot(UBBSlotNames.IDENTIFIER);
+        Slot identifierSlot = getKnowledgeBase().getSlot(UBBOntologyNamespaces.IDENTIFIER);
         if (identifierSlot != null) {
             Object slotValue = instance.getDirectOwnSlotValue(identifierSlot);
             if (slotValue != null) {

@@ -23,27 +23,18 @@
 
 package edu.stanford.smi.protegex.owl.ui.components;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Iterator;
-
 import edu.stanford.smi.protege.model.Cls;
 import edu.stanford.smi.protege.model.Slot;
 import edu.stanford.smi.protege.model.ValueType;
-import edu.stanford.smi.protegex.owl.model.OWLModel;
-import edu.stanford.smi.protegex.owl.model.OWLProperty;
-import edu.stanford.smi.protegex.owl.model.RDFProperty;
-import edu.stanford.smi.protegex.owl.model.RDFResource;
-import edu.stanford.smi.protegex.owl.model.RDFSClass;
-import edu.stanford.smi.protegex.owl.model.RDFSNamedClass;
+import edu.stanford.smi.protegex.owl.model.*;
 import edu.stanford.smi.protegex.owl.model.impl.AbstractOWLModel;
 import edu.stanford.smi.protegex.owl.model.impl.OWLUtil;
 import edu.stanford.smi.protegex.owl.ui.ProtegeUI;
 import edu.stanford.smi.protegex.owl.ui.icons.OWLIcons;
 import edu.stanford.smi.protegex.owl.ui.resourceselection.ResourceSelectionAction;
 import edu.stanford.smi.protegex.owl.ui.widget.OWLUI;
+
+import java.util.*;
 
 /**
  * @author Holger Knublauch  <holger@knublauch.com>
@@ -158,8 +149,8 @@ public class AddResourceAction extends ResourceSelectionAction {
         owlModel.getRDFUntypedResourcesClass().setVisible(false);
         return result;
     }
-    
-  
+
+
     protected Collection selectResourcesByType(OWLModel owlModel, Collection clses) {
     	return ProtegeUI.getSelectionDialogFactory().selectResourcesByType(component, owlModel, clses);
 	}
@@ -175,4 +166,5 @@ public class AddResourceAction extends ResourceSelectionAction {
             component.addObject(resource, symmetric);
         }
     }
+
 }

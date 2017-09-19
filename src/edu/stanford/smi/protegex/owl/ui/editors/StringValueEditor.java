@@ -87,7 +87,7 @@ public class StringValueEditor implements PropertyValueEditor {
             parent = ProtegeUI.getTopLevelContainer(property.getProject());
         }
         RDFSLiteral newLiteral = HTMLEditorPanel.show(parent, oldLiteral,
-                "Edit " + property.getBrowserText() + " at " + instance.getBrowserText(), instance.getOWLModel());
+                "Editing " + property.getBrowserText() + " at " + instance.getBrowserText(), instance.getOWLModel());
 
         if (newLiteral != null && !oldLiteral.equals(newLiteral)) {
             if(newLiteral.getLanguage() == null || newLiteral.getLanguage().length() == 0) {

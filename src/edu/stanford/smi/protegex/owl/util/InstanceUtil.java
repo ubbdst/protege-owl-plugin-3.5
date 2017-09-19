@@ -2,18 +2,23 @@ package edu.stanford.smi.protegex.owl.util;
 
 import edu.stanford.smi.protege.model.Cls;
 import edu.stanford.smi.protege.model.Instance;
+import edu.stanford.smi.protege.model.Reference;
 import edu.stanford.smi.protege.util.Log;
-import edu.stanford.smi.protegex.owl.model.OWLModel;
-import edu.stanford.smi.protegex.owl.model.RDFProperty;
+import edu.stanford.smi.protegex.owl.model.*;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 
+import static edu.stanford.smi.protegex.owl.model.impl.DefaultRDFSLiteral.DATATYPE_PREFIX;
+import static edu.stanford.smi.protegex.owl.model.impl.DefaultRDFSLiteral.LANGUAGE_PREFIX;
+import static edu.stanford.smi.protegex.owl.model.impl.DefaultRDFSLiteral.SEPARATOR;
+
 /**
- * A static utility class for some useful instance methods
+ * A static utility class for some convenience  methods
  *
  * @author Hemed Al Ruwehy
  *         University of Bergen Library
@@ -38,6 +43,36 @@ public class InstanceUtil {
         if (instance.hasOwnSlot(property) && instance.getDirectOwnSlotValue(property) != null) {
             instance.setDirectOwnSlotValue(property, null);
         }
+    }
+
+
+    /**
+     * Gets all references of type OWLIndividual of the given resource
+     *
+     * @param resource a resource in which its references need to be fetched
+     * @return a map which contains resource and property to which this resource is referred to
+     */
+    @SuppressWarnings("unchecked")
+    public static Map<RDFResource, RDFProperty> getInstanceReferences(RDFResource resource){
+        Map<RDFResource, RDFProperty> instancesAndProperties = new HashMap();
+        Collection<Reference> references = resource.getReferences();
+        for(Reference reference : references) {
+            if(reference.getFrame() instanceof OWLIndividual){
+                RDFResource subject = (RDFResource) reference.getFrame();
+                RDFProperty predicate = (RDFProperty) reference.getSlot();
+                if(subject != null && predicate != null) {
+                    instancesAndProperties.put(subject, predicate);
+                }
+            }
+        }
+        return instancesAndProperties;
+    }
+
+    /**
+     * Check if a given property has inverse relation
+     */
+    public static boolean isInverseProperty(RDFProperty property) {
+        return property.getInverseProperty() != null;
     }
 
 
@@ -159,6 +194,56 @@ public class InstanceUtil {
     }
 
 
+    /**
+     * Get Trash class or create new one if it does not exist
+     */
+    public static OWLNamedClass getTrashClass(OWLModel model) {
+        OWLNamedClass trashClass = model.getOWLNamedClass(UBBOntologyNamespaces.TRASH_CLASS_NAME);
+        //If it does not exists, create it.
+        if (trashClass == null) {
+            trashClass = model.createOWLNamedClass(UBBOntologyNamespaces.TRASH_CLASS_NAME);
+        }
+        return trashClass;
+    }
+
+    /**
+     * Validates language tag based on xsd:language specification.
+     * See http://www.datypic.com/sc/xsd/t-xsd_language.html.
+     *
+     * @param language a language tag to validate
+     *
+     * @return true if language tag is valid, otherwise false.
+     */
+    public static boolean isValidXSDLanguage(String language) {
+        String xsdLangRegex = "^[a-zA-Z]{1,8}(-[a-zA-Z0-9]{1,8})*$";
+        if (language == null || language.trim().length() == 0) {
+            return false;
+        }
+        if(language.matches(xsdLangRegex)) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * We know that value of this widget is of data type xsd:anyURI and there is no need for users to see
+     * the full URI including datatype in the UI. Therefore, we are stripping out datatype part for easy readability.
+
+     * @param rawValue a string with data type
+     *                 example: ~@http://www.w3.org/2001/XMLSchema#anyURI http://data.ub.uib.no/instance/document/ubb-ms-02
+     *
+     * @return a string where datatype is stripped.
+     *                 example: http://data.ub.uib.no/instance/document/ubb-ms-02
+     */
+    public static String stripDatatype(String rawValue) {
+        if(rawValue == null) {
+            return "";
+        }
+        if (rawValue.startsWith(LANGUAGE_PREFIX) || rawValue.startsWith(DATATYPE_PREFIX)) {
+            return rawValue.substring(rawValue.indexOf(SEPARATOR) + 1).trim();
+        }
+        return rawValue;
+    }
 }
 
 

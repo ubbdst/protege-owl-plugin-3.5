@@ -23,7 +23,6 @@
 
 package edu.stanford.smi.protegex.owl.ui.individuals;
 
-import edu.stanford.smi.protege.action.DeleteInstancesAction;
 import edu.stanford.smi.protege.action.MakeCopiesAction;
 import edu.stanford.smi.protege.action.ReferencersAction;
 import edu.stanford.smi.protege.event.*;
@@ -41,6 +40,7 @@ import edu.stanford.smi.protege.util.*;
 import edu.stanford.smi.protegex.owl.model.*;
 import edu.stanford.smi.protegex.owl.ui.OWLLabeledComponent;
 import edu.stanford.smi.protegex.owl.ui.ProtegeUI;
+import edu.stanford.smi.protegex.owl.ui.actions.DeleteInstanceOrMoveToTrashAction;
 import edu.stanford.smi.protegex.owl.ui.icons.OWLIcons;
 import edu.stanford.smi.protegex.owl.ui.widget.OWLUI;
 import edu.stanford.smi.protegex.owl.ui.widget.UUIDWidget;
@@ -405,7 +405,8 @@ public class AssertedInstancesListPanel extends SelectableContainer implements D
     }
 
     protected Action createDeleteAction() {
-        deleteAction = new DeleteInstancesAction(this);
+        //deleteAction = new DeleteInstancesAction(this);
+        deleteAction = new DeleteInstanceOrMoveToTrashAction(ResourceKey.INSTANCE_DELETE, this);
         return deleteAction;
     }
 
@@ -437,9 +438,9 @@ public class AssertedInstancesListPanel extends SelectableContainer implements D
 
                 //Build properties that need to be modified before instance is displaced
                 Map<RDFProperty, Object> properties = new HashMap<RDFProperty, Object>();
-                properties.put(owlModel.getRDFProperty(UBBSlotNames.IDENTIFIER), null);
-                properties.put(owlModel.getRDFProperty(UBBSlotNames.UUID), uuid);
-                properties.put(owlModel.getRDFProperty(UBBSlotNames.CLASS_HIERARCHY_URI), classHierarchyURI);
+                properties.put(owlModel.getRDFProperty(UBBOntologyNamespaces.IDENTIFIER), null);
+                properties.put(owlModel.getRDFProperty(UBBOntologyNamespaces.UUID), uuid);
+                properties.put(owlModel.getRDFProperty(UBBOntologyNamespaces.CLASS_HIERARCHY_URI), classHierarchyURI);
 
                 //After copying, modify particular properties for a copied instance
                 InstanceUtil.modifyProperties(copy, properties);

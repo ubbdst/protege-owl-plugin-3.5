@@ -1,4 +1,4 @@
-; Wed May 10 23:16:33 CEST 2017
+; Sat Sep 09 14:33:39 CEST 2017
 ; 
 ;+ (version "3.5")
 ;+ (build "Build 663")
@@ -6,11 +6,13 @@
 ([BROWSER_SLOT_NAMES] of  Property_List
 
 	(properties
-		[skeivt-arkiv-test.rdf-xml_ProjectKB_Class218]
-		[skeivt-arkiv-test.rdf-xml_ProjectKB_Class219]
-		[skeivt-arkiv-test.rdf-xml_ProjectKB_Class220]
-		[skeivt-arkiv-test.rdf-xml_ProjectKB_Class221]
-		[skeivt-arkiv-test.rdf-xml_ProjectKB_Class222]))
+		[skeivt-arkiv-test.rdf-xml_ProjectKB_Class30270]
+		[skeivt-arkiv-test.rdf-xml_ProjectKB_Class30271]
+		[skeivt-arkiv-test.rdf-xml_ProjectKB_Class30272]
+		[skeivt-arkiv-test.rdf-xml_ProjectKB_Class30273]
+		[skeivt-arkiv-test.rdf-xml_ProjectKB_Class30274]
+		[skeivt-arkiv-test.rdf-xml_ProjectKB_Class30275]
+		[skeivt-arkiv-test.rdf-xml_ProjectKB_Class30276]))
 
 ([CLSES_TAB] of  Widget
 
@@ -778,6 +780,9 @@
 
 	(boolean_value FALSE)
 	(name "DisabledByUser"))
+
+([KB_633397_Class0] of  Map
+)
 
 ([KB_635552_Instance_0] of  Widget
 
@@ -5458,8 +5463,8 @@
 		":OWL-CLASS"
 		"http://www.w3.org/2000/01/rdf-schema#Literal"
 		"http://www.w3.org/2002/07/owl#Ontology"
+		"http://protege.stanford.edu/plugins/owl/protege#ExternalResource"
 		"http://www.w3.org/2002/07/owl#intersectionOf"
-		"http://www.w3.org/2001/XMLSchema#anyURI"
 		"http://www.w3.org/2001/XMLSchema#IDREF"
 		"http://www.w3.org/2000/01/rdf-schema#Datatype"
 		"http://www.w3.org/2001/XMLSchema#hexBinary"
@@ -5593,9 +5598,6 @@
 		[SLOTS_TAB]
 		[KB_865583_Instance_10]))
 
-([skeivt-arkiv-test.rdf-xml_ProjectKB_Class0] of  Map
-)
-
 ([skeivt-arkiv-test.rdf-xml_ProjectKB_Class1] of  Widget
 
 	(is_hidden FALSE)
@@ -5611,6 +5613,34 @@
 ([skeivt-arkiv-test.rdf-xml_ProjectKB_Class100] of  Property_List
 )
 
+([skeivt-arkiv-test.rdf-xml_ProjectKB_Class10004] of  Widget
+
+	(is_hidden TRUE)
+	(property_list [skeivt-arkiv-test.rdf-xml_ProjectKB_Class10005])
+	(widget_class_name "edu.stanford.smi.protege.widget.ProtegePropertiesTab"))
+
+([skeivt-arkiv-test.rdf-xml_ProjectKB_Class10005] of  Property_List
+)
+
+([skeivt-arkiv-test.rdf-xml_ProjectKB_Class10069] of  Boolean
+
+	(boolean_value FALSE)
+	(name "DisabledByUser"))
+
+([skeivt-arkiv-test.rdf-xml_ProjectKB_Class10070] of  Widget
+
+	(height 120)
+	(is_hidden FALSE)
+	(name "http://data.ub.uib.no/ontology/mergeWith")
+	(property_list [skeivt-arkiv-test.rdf-xml_ProjectKB_Class10071])
+	(widget_class_name "edu.stanford.smi.protegex.owl.ui.widget.MergeResourceWidget")
+	(width 200)
+	(x 610)
+	(y 180))
+
+([skeivt-arkiv-test.rdf-xml_ProjectKB_Class10071] of  Property_List
+)
+
 ([skeivt-arkiv-test.rdf-xml_ProjectKB_Class101] of  Widget
 
 	(height 120)
@@ -5621,6 +5651,20 @@
 	(width 200)
 	(x 0)
 	(y 780))
+
+([skeivt-arkiv-test.rdf-xml_ProjectKB_Class10137] of  Widget
+
+	(height 120)
+	(is_hidden FALSE)
+	(name "http://purl.org/dc/terms/title")
+	(property_list [skeivt-arkiv-test.rdf-xml_ProjectKB_Class10138])
+	(widget_class_name "edu.stanford.smi.protegex.owl.ui.widget.MultiLiteralWidget")
+	(width 380)
+	(x 0)
+	(y 30))
+
+([skeivt-arkiv-test.rdf-xml_ProjectKB_Class10138] of  Property_List
+)
 
 ([skeivt-arkiv-test.rdf-xml_ProjectKB_Class102] of  Property_List
 )
@@ -5699,8 +5743,8 @@
 	(property_list [skeivt-arkiv-test.rdf-xml_ProjectKB_Class112])
 	(widget_class_name "edu.stanford.smi.protegex.owl.ui.widget.DataRangeFieldWidget")
 	(width 200)
-	(x 0)
-	(y 180))
+	(x 600)
+	(y 450))
 
 ([skeivt-arkiv-test.rdf-xml_ProjectKB_Class112] of  Property_List
 )
@@ -5916,13 +5960,14 @@
 	(is_hidden FALSE)
 	(name "http://data.ub.uib.no/ontology/hasClause")
 	(property_list [skeivt-arkiv-test.rdf-xml_ProjectKB_Class142])
-	(widget_class_name "edu.stanford.smi.protegex.owl.ui.widget.MultiResourceWidget")
+	(widget_class_name "edu.stanford.smi.protegex.owl.ui.widget.MergeResourceWidget")
 	(width 200)
 	(x 400)
 	(y 180))
 
 ([skeivt-arkiv-test.rdf-xml_ProjectKB_Class142] of  Property_List
-)
+
+	(properties [skeivt-arkiv-test.rdf-xml_ProjectKB_Class10069]))
 
 ([skeivt-arkiv-test.rdf-xml_ProjectKB_Class143] of  Widget
 
@@ -5963,7 +6008,7 @@
 	(name "http://data.ub.uib.no/ontology/classHierarchyURI")
 	(property_list [skeivt-arkiv-test.rdf-xml_ProjectKB_Class148])
 	(widget_class_name "edu.stanford.smi.protegex.owl.ui.widget.ClassHierarchyURIWidget")
-	(width 540)
+	(width 440)
 	(x 390)
 	(y 80))
 
@@ -6023,36 +6068,11 @@
 ([skeivt-arkiv-test.rdf-xml_ProjectKB_Class21] of  Property_List
 )
 
-([skeivt-arkiv-test.rdf-xml_ProjectKB_Class218] of  String
-
-	(name ":INSTANCE-ANNOTATION")
-	(string_value "%3AANNOTATION-TEXT"))
-
-([skeivt-arkiv-test.rdf-xml_ProjectKB_Class219] of  String
-
-	(name "http://www.w3.org/2002/07/owl#Thing")
-	(string_value "%3ANAME"))
-
 ([skeivt-arkiv-test.rdf-xml_ProjectKB_Class22] of  Widget
 
 	(is_hidden FALSE)
 	(name "http://www.w3.org/2000/01/rdf-schema#label")
 	(property_list [skeivt-arkiv-test.rdf-xml_ProjectKB_Class23]))
-
-([skeivt-arkiv-test.rdf-xml_ProjectKB_Class220] of  String
-
-	(name "http://www.w3.org/2002/07/owl#Class")
-	(string_value "%3ANAME"))
-
-([skeivt-arkiv-test.rdf-xml_ProjectKB_Class221] of  String
-
-	(name ":PAL-CONSTRAINT")
-	(string_value "%3APAL-NAME"))
-
-([skeivt-arkiv-test.rdf-xml_ProjectKB_Class222] of  String
-
-	(name ":META-CLASS")
-	(string_value "%3ANAME"))
 
 ([skeivt-arkiv-test.rdf-xml_ProjectKB_Class23] of  Property_List
 )
@@ -6075,6 +6095,59 @@
 ([skeivt-arkiv-test.rdf-xml_ProjectKB_Class27] of  Property_List
 )
 
+([skeivt-arkiv-test.rdf-xml_ProjectKB_Class30195] of  Widget
+
+	(is_hidden FALSE)
+	(label "Name")
+	(name ":NAME")
+	(property_list [skeivt-arkiv-test.rdf-xml_ProjectKB_Class30197])
+	(widget_class_name "edu.stanford.smi.protege.widget.FormWidget"))
+
+([skeivt-arkiv-test.rdf-xml_ProjectKB_Class30196] of  Widget
+
+	(is_hidden FALSE)
+	(label "Comment")
+	(name "http://www.w3.org/2000/01/rdf-schema#comment")
+	(widget_class_name "edu.stanford.smi.protege.widget.FormWidget"))
+
+([skeivt-arkiv-test.rdf-xml_ProjectKB_Class30197] of  Property_List
+)
+
+([skeivt-arkiv-test.rdf-xml_ProjectKB_Class30270] of  String
+
+	(name ":INSTANCE-ANNOTATION")
+	(string_value "%3AANNOTATION-TEXT"))
+
+([skeivt-arkiv-test.rdf-xml_ProjectKB_Class30271] of  String
+
+	(name "http://purl.org/ontology/bibo/Document")
+	(string_value "http%3A%2F%2Fpurl.org%2Fdc%2Fterms%2Ftitle"))
+
+([skeivt-arkiv-test.rdf-xml_ProjectKB_Class30272] of  String
+
+	(name "http://www.w3.org/2002/07/owl#Thing")
+	(string_value "%3ANAME"))
+
+([skeivt-arkiv-test.rdf-xml_ProjectKB_Class30273] of  String
+
+	(name "http://www.w3.org/2002/07/owl#Class")
+	(string_value "%3ANAME"))
+
+([skeivt-arkiv-test.rdf-xml_ProjectKB_Class30274] of  String
+
+	(name ":PAL-CONSTRAINT")
+	(string_value "%3APAL-NAME"))
+
+([skeivt-arkiv-test.rdf-xml_ProjectKB_Class30275] of  String
+
+	(name "http://data.ub.uib.no/Trash")
+	(string_value "http%3A%2F%2Fpurl.org%2Fdc%2Fterms%2Ftitle"))
+
+([skeivt-arkiv-test.rdf-xml_ProjectKB_Class30276] of  String
+
+	(name ":META-CLASS")
+	(string_value "%3ANAME"))
+
 ([skeivt-arkiv-test.rdf-xml_ProjectKB_Class31] of  Widget
 
 	(height 300)
@@ -6087,33 +6160,6 @@
 	(y 120))
 
 ([skeivt-arkiv-test.rdf-xml_ProjectKB_Class32] of  Property_List
-)
-
-([skeivt-arkiv-test.rdf-xml_ProjectKB_Class33] of  Widget
-
-	(is_hidden TRUE)
-	(property_list [skeivt-arkiv-test.rdf-xml_ProjectKB_Class34])
-	(widget_class_name "edu.stanford.smi.protege.widget.ProtegePropertiesTab"))
-
-([skeivt-arkiv-test.rdf-xml_ProjectKB_Class34] of  Property_List
-)
-
-([skeivt-arkiv-test.rdf-xml_ProjectKB_Class35] of  Widget
-
-	(is_hidden FALSE)
-	(label "Name")
-	(name ":NAME")
-	(property_list [skeivt-arkiv-test.rdf-xml_ProjectKB_Class37])
-	(widget_class_name "edu.stanford.smi.protege.widget.FormWidget"))
-
-([skeivt-arkiv-test.rdf-xml_ProjectKB_Class36] of  Widget
-
-	(is_hidden FALSE)
-	(label "Comment")
-	(name "http://www.w3.org/2000/01/rdf-schema#comment")
-	(widget_class_name "edu.stanford.smi.protege.widget.FormWidget"))
-
-([skeivt-arkiv-test.rdf-xml_ProjectKB_Class37] of  Property_List
 )
 
 ([skeivt-arkiv-test.rdf-xml_ProjectKB_Class38] of  Widget
@@ -6193,7 +6239,9 @@
 		[skeivt-arkiv-test.rdf-xml_ProjectKB_Class143]
 		[skeivt-arkiv-test.rdf-xml_ProjectKB_Class145]
 		[skeivt-arkiv-test.rdf-xml_ProjectKB_Class147]
-		[skeivt-arkiv-test.rdf-xml_ProjectKB_Class149]))
+		[skeivt-arkiv-test.rdf-xml_ProjectKB_Class149]
+		[skeivt-arkiv-test.rdf-xml_ProjectKB_Class10070]
+		[skeivt-arkiv-test.rdf-xml_ProjectKB_Class10137]))
 
 ([skeivt-arkiv-test.rdf-xml_ProjectKB_Class42] of  Widget
 
@@ -6234,14 +6282,14 @@
 
 ([skeivt-arkiv-test.rdf-xml_ProjectKB_Class48] of  Widget
 
-	(height 180)
+	(height 150)
 	(is_hidden FALSE)
 	(name "http://protege.stanford.edu/plugins/owl/protege#inferredType")
 	(property_list [skeivt-arkiv-test.rdf-xml_ProjectKB_Class49])
 	(widget_class_name "edu.stanford.smi.protegex.owl.ui.widget.HeaderWidget")
 	(width 380)
 	(x 0)
-	(y 0))
+	(y 150))
 
 ([skeivt-arkiv-test.rdf-xml_ProjectKB_Class49] of  Property_List
 
@@ -6309,8 +6357,8 @@
 ([skeivt-arkiv-test.rdf-xml_ProjectKB_Class6] of  Property_List
 
 	(properties
-		[skeivt-arkiv-test.rdf-xml_ProjectKB_Class35]
-		[skeivt-arkiv-test.rdf-xml_ProjectKB_Class36]))
+		[skeivt-arkiv-test.rdf-xml_ProjectKB_Class30195]
+		[skeivt-arkiv-test.rdf-xml_ProjectKB_Class30196]))
 
 ([skeivt-arkiv-test.rdf-xml_ProjectKB_Class60] of  Property_List
 )
@@ -6365,8 +6413,8 @@
 	(property_list [skeivt-arkiv-test.rdf-xml_ProjectKB_Class68])
 	(widget_class_name "edu.stanford.smi.protegex.owl.ui.widget.MultiResourceWidget")
 	(width 200)
-	(x 200)
-	(y 180))
+	(x 600)
+	(y 510))
 
 ([skeivt-arkiv-test.rdf-xml_ProjectKB_Class68] of  Property_List
 )
@@ -6512,8 +6560,8 @@
 	(property_list [skeivt-arkiv-test.rdf-xml_ProjectKB_Class88])
 	(widget_class_name "edu.stanford.smi.protegex.owl.ui.widget.DataRangeFieldWidget")
 	(width 200)
-	(x 0)
-	(y 240))
+	(x 600)
+	(y 640))
 
 ([skeivt-arkiv-test.rdf-xml_ProjectKB_Class88] of  Property_List
 )
@@ -7010,19 +7058,6 @@
 
 	(name "vertical_stretcher")
 	(string_value "http://www.w3.org/2002/07/owl#imports"))
-
-([XY_Instance_217] of  Widget
-
-	(height 0)
-	(is_hidden FALSE)
-	(name ":OWL-ONTOLOGY-PREFIXES")
-	(property_list [XY_Instance_218])
-	(width 0)
-	(x 0)
-	(y 0))
-
-([XY_Instance_218] of  Property_List
-)
 
 ([XY_Instance_235] of  Widget
 

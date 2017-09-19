@@ -23,26 +23,20 @@
 
 package edu.stanford.smi.protegex.owl.ui.components.singleresource;
 
-import java.awt.Component;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
-
-import javax.swing.Action;
-
-import edu.stanford.smi.protegex.owl.model.OWLEnumeratedClass;
-import edu.stanford.smi.protegex.owl.model.OWLModel;
-import edu.stanford.smi.protegex.owl.model.RDFProperty;
-import edu.stanford.smi.protegex.owl.model.RDFResource;
-import edu.stanford.smi.protegex.owl.model.RDFSClass;
-import edu.stanford.smi.protegex.owl.model.RDFSNamedClass;
+import edu.stanford.smi.protegex.owl.model.*;
 import edu.stanford.smi.protegex.owl.ui.ProtegeUI;
 import edu.stanford.smi.protegex.owl.ui.components.PropertyValuesComponent;
 import edu.stanford.smi.protegex.owl.ui.dialogs.DefaultSelectionDialogFactory;
 import edu.stanford.smi.protegex.owl.ui.icons.OWLIcons;
 import edu.stanford.smi.protegex.owl.ui.resourceselection.ResourceSelectionAction;
 import edu.stanford.smi.protegex.owl.ui.widget.OWLUI;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 /**
  * @author Holger Knublauch  <holger@knublauch.com>
@@ -53,7 +47,11 @@ public class SetResourceAction extends ResourceSelectionAction {
 
 
     public SetResourceAction(PropertyValuesComponent component) {
-        super("Select existing resource...", OWLIcons.getAddIcon(OWLIcons.RDF_INDIVIDUAL));
+        this("Select existing resource...", OWLIcons.getAddIcon(OWLIcons.RDF_INDIVIDUAL), component);
+    }
+
+    public SetResourceAction(String value, Icon icon, PropertyValuesComponent component) {
+        super(value, icon);
         this.component = component;
     }
 

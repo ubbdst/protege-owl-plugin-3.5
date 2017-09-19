@@ -23,30 +23,14 @@
 
 package edu.stanford.smi.protegex.owl.ui.individuals;
 
-import java.awt.BorderLayout;
-import java.util.Collection;
-
-import javax.swing.Action;
-import javax.swing.JComponent;
-import javax.swing.JLabel;
-import javax.swing.JPopupMenu;
-import javax.swing.JTree;
-
 import edu.stanford.smi.protege.model.Cls;
-import edu.stanford.smi.protege.resource.Colors;
 import edu.stanford.smi.protege.resource.Icons;
 import edu.stanford.smi.protege.resource.LocalizedText;
 import edu.stanford.smi.protege.resource.ResourceKey;
 import edu.stanford.smi.protege.ui.FrameRenderer;
 import edu.stanford.smi.protege.ui.HeaderComponent;
 import edu.stanford.smi.protege.ui.ParentChildRoot;
-import edu.stanford.smi.protege.util.ComponentFactory;
-import edu.stanford.smi.protege.util.ComponentUtilities;
-import edu.stanford.smi.protege.util.LabeledComponent;
-import edu.stanford.smi.protege.util.PopupMenuMouseListener;
-import edu.stanford.smi.protege.util.SelectableContainer;
-import edu.stanford.smi.protege.util.StringUtilities;
-import edu.stanford.smi.protege.util.ViewAction;
+import edu.stanford.smi.protege.util.*;
 import edu.stanford.smi.protegex.owl.model.OWLModel;
 import edu.stanford.smi.protegex.owl.model.RDFResource;
 import edu.stanford.smi.protegex.owl.model.RDFSClass;
@@ -54,13 +38,11 @@ import edu.stanford.smi.protegex.owl.model.RDFSNamedClass;
 import edu.stanford.smi.protegex.owl.ui.actions.ResourceActionManager;
 import edu.stanford.smi.protegex.owl.ui.cls.ClassTree;
 import edu.stanford.smi.protegex.owl.ui.cls.ClassTreePanel;
-import edu.stanford.smi.protegex.owl.ui.search.finder.DefaultClassFind;
-import edu.stanford.smi.protegex.owl.ui.search.finder.DefaultIndividualFind;
-import edu.stanford.smi.protegex.owl.ui.search.finder.Find;
-import edu.stanford.smi.protegex.owl.ui.search.finder.FindAction;
-import edu.stanford.smi.protegex.owl.ui.search.finder.FindInDialogAction;
-import edu.stanford.smi.protegex.owl.ui.search.finder.ResourceFinder;
 import edu.stanford.smi.protegex.owl.ui.widget.OWLUI;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.Collection;
 
 /**
  * The class tree display on the individuals tab. This contains header label (top),
@@ -70,6 +52,7 @@ import edu.stanford.smi.protegex.owl.ui.widget.OWLUI;
  * @author Ray Fergerson <fergerson@smi.stanford.edu>
  */
 public class IndividualsTabClassesPanel extends SelectableContainer implements ClassTreePanel {
+    private static final Color classBrowserColor = new Color(36, 182, 245);
 
     private ClassTree classTree;
 
@@ -90,7 +73,8 @@ public class IndividualsTabClassesPanel extends SelectableContainer implements C
         String classBrowserLabel = LocalizedText.getText(ResourceKey.CLASS_BROWSER_TITLE);
         String forProjectLabel = LocalizedText.getText(ResourceKey.CLASS_BROWSER_FOR_PROJECT_LABEL);
         HeaderComponent header = new HeaderComponent(classBrowserLabel, forProjectLabel, label);
-        header.setColor(Colors.getClsColor());
+        //header.setColor(Colors.getClsColor());
+        header.setColor(classBrowserColor); //use new color that matches with new icons
         return header;
     }
 
@@ -132,12 +116,12 @@ public class IndividualsTabClassesPanel extends SelectableContainer implements C
         c.setBorder(ComponentUtilities.getAlignBorder());
         c.addHeaderButton(getViewClsAction());
 
-        /*
-          Remove Finder Component from the class tree component (CLASS BROWSER) following the request from UiB Library.
-          In server-client architecture, finding a resource deep into the hierarchy is resource-intensive and
-          causes Protege to freeze. See issue #1 at https://prosjekt.uib.no/issues/7757
-
-          Hemed, 27-07-2017
+         /*
+          *  Remove Finder Component from the class tree component (CLASS BROWSER) following the request from UiB Library.
+          *  In server-client architecture, finding a resource deep into the hierarchy is resource-intensive and
+          *  causes Protege to freeze. See issue #1 at https://prosjekt.uib.no/issues/7757.
+          *
+          * - Hemed Al Ruwehy, 27-07-2017
          **/
 
         /**

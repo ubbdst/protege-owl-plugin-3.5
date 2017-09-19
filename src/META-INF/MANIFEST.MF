@@ -241,6 +241,9 @@ Slot-Widget: True
 Name: edu/stanford/smi/protegex/owl/ui/widget/MultiResourceWidget.class
 Slot-Widget: True
 
+Name: edu/stanford/smi/protegex/owl/ui/widget/MergeResourceWidget.class
+Slot-Widget: True
+
 Name: edu/stanford/smi/protegex/owl/ui/widget/SingleResourceWidget.class
 Slot-Widget: True
 

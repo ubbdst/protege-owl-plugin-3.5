@@ -23,10 +23,10 @@
 
 package edu.stanford.smi.protegex.owl.ui.components;
 
-import java.util.Collection;
-
 import edu.stanford.smi.protegex.owl.model.OWLModel;
 import edu.stanford.smi.protegex.owl.ui.dialogs.DefaultSelectionDialogFactory;
+
+import java.util.Collection;
 
 public class AddResourcesWithBrowserTextAction extends AddResourceAction {
 
@@ -44,6 +44,4 @@ public class AddResourcesWithBrowserTextAction extends AddResourceAction {
 			selectResourcesWithBrowserTextByType(component, owlModel, clses, "Select Resources..");
 	
 	}
-	
-
 }

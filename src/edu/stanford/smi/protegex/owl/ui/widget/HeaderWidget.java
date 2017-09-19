@@ -23,12 +23,6 @@
 
 package edu.stanford.smi.protegex.owl.ui.widget;
 
-import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.util.Collection;
-
-import javax.swing.AbstractAction;
-
 import edu.stanford.smi.protege.model.Cls;
 import edu.stanford.smi.protege.model.Facet;
 import edu.stanford.smi.protege.model.Instance;
@@ -42,6 +36,11 @@ import edu.stanford.smi.protegex.owl.ui.components.annotations.AnnotationsCompon
 import edu.stanford.smi.protegex.owl.ui.components.triples.AbstractTriplesComponent;
 import edu.stanford.smi.protegex.owl.ui.components.triples.TriplesComponent;
 import edu.stanford.smi.protegex.owl.ui.icons.OWLIcons;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.util.Collection;
 
 /**
  * The SlotWidget showing up as default on the top of all forms.
@@ -107,7 +106,8 @@ public class HeaderWidget extends AbstractSlotWidget {
 
     public void initialize() {
         setLayout(new BorderLayout());
-        activateAnnotationsComponent();
+        //activateAnnotationsComponent();
+        activateTriplesComponent();
     }
 
 

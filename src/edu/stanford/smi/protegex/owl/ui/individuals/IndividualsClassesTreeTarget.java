@@ -71,7 +71,7 @@ class IndividualsClassesTreeTarget extends TreeTarget {
             sourceInstance = (Instance) source;
         }
         else if (source instanceof FrameWithBrowserText) {
-            sourceInstance = (Instance) ((FrameWithBrowserText) source).getFrame();
+            sourceInstance = (Instance) ((FrameWithBrowserText)source).getFrame();
         }
 
         if (targetCls.isAbstract()) {

@@ -23,34 +23,12 @@
 
 package edu.stanford.smi.protegex.owl.ui.components.singleresource;
 
-import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-
-import javax.swing.AbstractAction;
-import javax.swing.Action;
-import javax.swing.JComponent;
-import javax.swing.JList;
-import javax.swing.JPopupMenu;
-
 import edu.stanford.smi.protege.model.Cls;
 import edu.stanford.smi.protege.model.Instance;
 import edu.stanford.smi.protege.model.KnowledgeBase;
 import edu.stanford.smi.protege.ui.FrameRenderer;
-import edu.stanford.smi.protege.util.CollectionUtilities;
-import edu.stanford.smi.protege.util.ComponentFactory;
-import edu.stanford.smi.protege.util.ComponentUtilities;
-import edu.stanford.smi.protege.util.Disposable;
-import edu.stanford.smi.protege.util.PopupMenuMouseListener;
-import edu.stanford.smi.protegex.owl.model.OWLAnonymousClass;
-import edu.stanford.smi.protegex.owl.model.OWLModel;
-import edu.stanford.smi.protegex.owl.model.RDFProperty;
-import edu.stanford.smi.protegex.owl.model.RDFResource;
-import edu.stanford.smi.protegex.owl.model.RDFSClass;
-import edu.stanford.smi.protegex.owl.model.RDFSNamedClass;
-import edu.stanford.smi.protegex.owl.model.RDFUntypedResource;
+import edu.stanford.smi.protege.util.*;
+import edu.stanford.smi.protegex.owl.model.*;
 import edu.stanford.smi.protegex.owl.model.event.PropertyValueAdapter;
 import edu.stanford.smi.protegex.owl.model.event.PropertyValueListener;
 import edu.stanford.smi.protegex.owl.model.impl.OWLUtil;
@@ -62,28 +40,31 @@ import edu.stanford.smi.protegex.owl.ui.icons.OWLIcons;
 import edu.stanford.smi.protegex.owl.ui.widget.OWLUI;
 import edu.stanford.smi.protegex.owl.util.UUIDInstanceURI;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+
 /**
  * @author Holger Knublauch  <holger@knublauch.com>
  */
 public class SingleResourceComponent extends AbstractPropertyValuesComponent implements Disposable {
 
-	
-    private PropertyValueListener browserTextListener = new PropertyValueAdapter() {
-        @Override
-		public void browserTextChanged(RDFResource resource) {
-            list.repaint();
-        }
-    };
 
     private Action createAction = new AbstractAction("Create resource", OWLIcons.getCreateIndividualIcon(OWLIcons.RDF_INDIVIDUAL)) {
         public void actionPerformed(ActionEvent e) {
             handleCreate();
         }
     };
-
-
     private JList list;
-
+    private PropertyValueListener browserTextListener = new PropertyValueAdapter() {
+        @Override
+        public void browserTextChanged(RDFResource resource) {
+            list.repaint();
+        }
+    };
     private Action removeAction = new AbstractAction("Remove current value", OWLIcons.getRemoveIcon(OWLIcons.RDF_INDIVIDUAL)) {
         public void actionPerformed(ActionEvent e) {
             handleRemove();
@@ -96,18 +77,18 @@ public class SingleResourceComponent extends AbstractPropertyValuesComponent imp
 
     private Action setAction = new SetResourceAction(this);
 
-    
+
     public SingleResourceComponent(RDFProperty predicate) {
-    	this(predicate, null);
-	}
-    
+        this(predicate, null);
+    }
+
     public SingleResourceComponent(RDFProperty predicate, String label) {
-    	this(predicate, label, false);
+        this(predicate, label, false);
     }
 
     public SingleResourceComponent(RDFProperty predicate, String label, boolean isReadOnly) {
         super(predicate, label, isReadOnly);
-        
+
         list = ComponentFactory.createSingleItemList(new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
                 handleDoubleClick();
@@ -117,16 +98,16 @@ public class SingleResourceComponent extends AbstractPropertyValuesComponent imp
         list.addMouseListener(new PopupMenuMouseListener(list) {
 
             @Override
-			protected JPopupMenu getPopupMenu() {
+            protected JPopupMenu getPopupMenu() {
                 return createPopupMenu();
             }
 
 
             @Override
-			protected void setSelection(JComponent c, int x, int y) {
+            protected void setSelection(JComponent c, int x, int y) {
             }
         });
-        OWLLabeledComponent lc = new OWLLabeledComponent((label == null ? getLabel():label), list);
+        OWLLabeledComponent lc = new OWLLabeledComponent((label == null ? getLabel() : label), list);
         lc.addHeaderButton(createAction);
         lc.addHeaderButton(setAction);
         lc.addHeaderButton(removeAction);
@@ -135,7 +116,7 @@ public class SingleResourceComponent extends AbstractPropertyValuesComponent imp
 
 
     static boolean containsAnonymousClass(Collection clses) {
-        for (Iterator it = clses.iterator(); it.hasNext();) {
+        for (Iterator it = clses.iterator(); it.hasNext(); ) {
             Cls cls = (Cls) it.next();
             if (cls instanceof OWLAnonymousClass) {
                 return true;
@@ -176,8 +157,7 @@ public class SingleResourceComponent extends AbstractPropertyValuesComponent imp
         }
         if (clses.isEmpty()) {
             clses.add(owlModel.getOWLThingClass());
-        }
-        else if (OWLUI.isExternalResourcesSupported(owlModel)) {
+        } else if (OWLUI.isExternalResourcesSupported(owlModel)) {
             clses.add(owlModel.getRDFUntypedResourcesClass());
         }
         if (OWLUI.isExternalResourcesSupported(owlModel)) {
@@ -193,8 +173,7 @@ public class SingleResourceComponent extends AbstractPropertyValuesComponent imp
             Instance instance = ((KnowledgeBase) owlModel).createInstance(uniqueInstanceName, cls);
             if (instance instanceof RDFUntypedResource) {
                 instance = OWLUtil.assignUniqueURI((RDFUntypedResource) instance);
-            }
-            else if (instance instanceof RDFSClass) {
+            } else if (instance instanceof RDFSClass) {
                 RDFSClass newClass = (RDFSClass) instance;
                 if (newClass.getSuperclassCount() == 0) {
                     newClass.addSuperclass(owlModel.getOWLThingClass());
@@ -228,8 +207,7 @@ public class SingleResourceComponent extends AbstractPropertyValuesComponent imp
     public boolean isRemoveEnabled() {
         if (!hasHasValueRestriction()) {
             return getObject() != null && hasOnlyEditableValues();
-        }
-        else {
+        } else {
             return false;
         }
     }
@@ -248,8 +226,8 @@ public class SingleResourceComponent extends AbstractPropertyValuesComponent imp
 
 
     private void updateActions() {
-    	boolean isEditable = !isReadOnly();
-    	
+        boolean isEditable = !isReadOnly();
+
         createAction.setEnabled(isEditable && isCreateEnabled());
         setAction.setEnabled(isEditable && isSetEnabled());
         removeAction.setEnabled(isEditable && isRemoveEnabled());
@@ -273,13 +251,12 @@ public class SingleResourceComponent extends AbstractPropertyValuesComponent imp
         if (value instanceof RDFResource) {
             resource = (RDFResource) value;
             resource.addPropertyValueListener(browserTextListener);
-        }
-        else {
+        } else {
             resource = null;
         }
         updateActions();
         updateList();
     }
-  
+
 
 }

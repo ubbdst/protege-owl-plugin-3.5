@@ -23,32 +23,15 @@
 
 package edu.stanford.smi.protegex.owl.model.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-
 import edu.stanford.smi.protege.model.Cls;
 import edu.stanford.smi.protege.model.FrameID;
 import edu.stanford.smi.protege.model.KnowledgeBase;
-import edu.stanford.smi.protegex.owl.model.OWLAllValuesFrom;
-import edu.stanford.smi.protegex.owl.model.OWLIntersectionClass;
-import edu.stanford.smi.protegex.owl.model.OWLNames;
-import edu.stanford.smi.protegex.owl.model.OWLUnionClass;
-import edu.stanford.smi.protegex.owl.model.RDFIndividual;
-import edu.stanford.smi.protegex.owl.model.RDFObject;
-import edu.stanford.smi.protegex.owl.model.RDFProperty;
-import edu.stanford.smi.protegex.owl.model.RDFResource;
-import edu.stanford.smi.protegex.owl.model.RDFSClass;
-import edu.stanford.smi.protegex.owl.model.RDFSNamedClass;
+import edu.stanford.smi.protegex.owl.model.*;
 import edu.stanford.smi.protegex.owl.model.visitor.OWLModelVisitor;
 import edu.stanford.smi.protegex.owl.ui.icons.OWLIcons;
+
+import javax.swing.*;
+import java.util.*;
 
 /**
  * @author Holger Knublauch  <holger@knublauch.com>
@@ -91,7 +74,7 @@ public class DefaultRDFSNamedClass extends AbstractRDFSClass implements RDFSName
         	return isEditable() ? 
     				OWLIcons.getExternalResourceIcon() :
             		OWLIcons.getReadOnlyClsIcon(OWLIcons.getExternalResourceIcon());
-        }  else {
+        } else {
             return isEditable() ?
             		OWLIcons.getImageIcon(OWLIcons.RDFS_NAMED_CLASS) : 
             		OWLIcons.getReadOnlyClsIcon(OWLIcons.getImageIcon(OWLIcons.RDFS_NAMED_CLASS));

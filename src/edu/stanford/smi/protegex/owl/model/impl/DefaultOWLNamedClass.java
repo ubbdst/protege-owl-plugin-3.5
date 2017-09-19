@@ -23,43 +23,13 @@
 
 package edu.stanford.smi.protegex.owl.model.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
-
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-
-import edu.stanford.smi.protege.model.Cls;
-import edu.stanford.smi.protege.model.FrameID;
-import edu.stanford.smi.protege.model.KnowledgeBase;
-import edu.stanford.smi.protege.model.Slot;
-import edu.stanford.smi.protegex.owl.model.OWLAllValuesFrom;
-import edu.stanford.smi.protegex.owl.model.OWLAnonymousClass;
-import edu.stanford.smi.protegex.owl.model.OWLCardinality;
-import edu.stanford.smi.protegex.owl.model.OWLCardinalityBase;
-import edu.stanford.smi.protegex.owl.model.OWLDatatypeProperty;
-import edu.stanford.smi.protegex.owl.model.OWLHasValue;
-import edu.stanford.smi.protegex.owl.model.OWLIndividual;
-import edu.stanford.smi.protegex.owl.model.OWLIntersectionClass;
-import edu.stanford.smi.protegex.owl.model.OWLMaxCardinality;
-import edu.stanford.smi.protegex.owl.model.OWLMinCardinality;
-import edu.stanford.smi.protegex.owl.model.OWLNamedClass;
-import edu.stanford.smi.protegex.owl.model.OWLNames;
-import edu.stanford.smi.protegex.owl.model.OWLRestriction;
-import edu.stanford.smi.protegex.owl.model.OWLSomeValuesFrom;
-import edu.stanford.smi.protegex.owl.model.ProtegeNames;
-import edu.stanford.smi.protegex.owl.model.RDFProperty;
-import edu.stanford.smi.protegex.owl.model.RDFResource;
-import edu.stanford.smi.protegex.owl.model.RDFSClass;
-import edu.stanford.smi.protegex.owl.model.RDFSNamedClass;
-import edu.stanford.smi.protege.model.Transaction;
+import edu.stanford.smi.protege.model.*;
 import edu.stanford.smi.protegex.owl.model.*;
 import edu.stanford.smi.protegex.owl.model.visitor.OWLModelVisitor;
 import edu.stanford.smi.protegex.owl.ui.icons.OWLIcons;
+
+import javax.swing.*;
+import java.util.*;
 
 /**
  * The default implementation of the OWLNamedClass interface.
@@ -282,7 +252,12 @@ public class DefaultOWLNamedClass extends DefaultRDFSNamedClass implements OWLNa
 
     @Override
     public Icon getIcon() {
-        if (!getOWLModel().getProject().isMultiUserClient() && isMetaCls()) {
+        if (getLocalName().equals(UBBOntologyNamespaces.TRASH_CLASS_NAME)) {
+            return isEditable() ?
+                    OWLIcons.getImageIcon(OWLIcons.TRASH_CLASS_ICON) :
+                    OWLIcons.getReadOnlyClsIcon(OWLIcons.getImageIcon(OWLIcons.TRASH_CLASS_ICON));
+        }
+        else if (!getOWLModel().getProject().isMultiUserClient() && isMetaCls()) {
             return super.getIcon();
         }
         else {

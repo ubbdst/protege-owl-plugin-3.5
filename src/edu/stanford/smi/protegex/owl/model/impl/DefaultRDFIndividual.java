@@ -23,37 +23,68 @@
 
 package edu.stanford.smi.protegex.owl.model.impl;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Set;
-
-import javax.swing.Icon;
-
 import edu.stanford.smi.protege.model.DefaultSimpleInstance;
 import edu.stanford.smi.protege.model.FrameID;
 import edu.stanford.smi.protege.model.KnowledgeBase;
-import edu.stanford.smi.protegex.owl.model.NamespaceUtil;
-import edu.stanford.smi.protegex.owl.model.OWLModel;
-import edu.stanford.smi.protegex.owl.model.RDFIndividual;
-import edu.stanford.smi.protegex.owl.model.RDFObject;
-import edu.stanford.smi.protegex.owl.model.RDFProperty;
-import edu.stanford.smi.protegex.owl.model.RDFResource;
-import edu.stanford.smi.protegex.owl.model.RDFSClass;
-import edu.stanford.smi.protegex.owl.model.RDFSLiteral;
+import edu.stanford.smi.protegex.owl.model.*;
 import edu.stanford.smi.protegex.owl.model.event.PropertyValueListener;
 import edu.stanford.smi.protegex.owl.model.event.ResourceListener;
 import edu.stanford.smi.protegex.owl.model.visitor.OWLModelVisitor;
 import edu.stanford.smi.protegex.owl.ui.icons.OWLIcons;
 
-public class DefaultRDFIndividual extends DefaultSimpleInstance implements RDFIndividual {
+import javax.swing.*;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.Set;
 
+import static edu.stanford.smi.protegex.owl.util.InstanceUtil.getTrashClass;
+import static edu.stanford.smi.protegex.owl.util.InstanceUtil.stripDatatype;
+import static edu.stanford.smi.protegex.owl.ui.widget.UUIDWidget.getUUIDFromInstanceURI;
+import static edu.stanford.smi.protegex.owl.ui.widget.UUIDWidget.isValidUUID;
+
+public class DefaultRDFIndividual extends DefaultSimpleInstance implements RDFIndividual {
 
     public DefaultRDFIndividual(KnowledgeBase kb, FrameID id) {
         super(kb, id);
     }
 
+    public DefaultRDFIndividual() { }
 
-    public DefaultRDFIndividual() {
+    /**
+     * Returns a local name of this instance
+     *
+     * Note that, this is an experimental feature, it may be removed in the future.
+     */
+    /*private String getHumanReadableName(OWLModel model) {
+        if(humanReadableText == null) {
+            String classURI = getProtegeType().getName();
+            //Generate new browser text
+            String newBrowserText = model.getUniqueFrameName(NamespaceUtil.getLocalName(classURI));
+            //Set this new browser text
+            setHumanReadableText(newBrowserText);
+            return newBrowserText;
+        }
+        return humanReadableText;
+    }*/
+
+    /**
+     * Returns a human understandable name of this instance
+     *
+     * This is an experimental feature, it may be removed in the future.
+     */
+    private String getHumanReadableName() {
+        String uuid = getUUIDFromInstanceURI(this);
+        if(!uuid.isEmpty()) {
+            if (isInTrash()) {
+                Object classHierarchyURI = getPropertyValue(getOWLModel()
+                        .getRDFProperty(UBBOntologyNamespaces.CLASS_HIERARCHY_URI));
+                if (classHierarchyURI != null) {
+                  return stripDatatype(classHierarchyURI.toString());
+                }
+            }
+            return getProtegeType().getBrowserText() + "_" + uuid;
+        }
+      return "";
     }
 
 
@@ -61,9 +92,37 @@ public class DefaultRDFIndividual extends DefaultSimpleInstance implements RDFIn
         visitor.visitRDFIndividual(this);
     }
 
+    /**
+     * Check if this instance belongs to Trash
+     */
+    private boolean isInTrash() {
+        return getProtegeTypes().contains(getTrashClass(getOWLModel()));
+    }
+
+    @Override
+    public String getBrowserText() {
+        String browserText = super.getBrowserText();
+        //Append class name for easy readability
+        if(browserText.startsWith("http") || isValidUUID(browserText)){
+            if(!getHumanReadableName().isEmpty()) {
+                return getHumanReadableName();
+            }
+        }
+        return browserText;
+    }
 
     public Icon getIcon() {
-    	String iconName = (isAnonymous() ? OWLIcons.RDF_ANON_INDIVIDUAL : OWLIcons.RDF_INDIVIDUAL); 
+    	String iconName;
+    	if(isAnonymous()) {
+           iconName = OWLIcons.RDF_ANON_INDIVIDUAL;
+        }
+        else if(isInTrash()) {
+            iconName = OWLIcons.TRASH_INDIVIDUAL_ICON;
+        }
+        else {
+    	    iconName = OWLIcons.RDF_INDIVIDUAL;
+        }
+    	//iconName = (isInTrash() || isAnonymous() ? OWLIcons.RDF_ANON_INDIVIDUAL : OWLIcons.RDF_INDIVIDUAL);
         return isEditable() ?
                 OWLIcons.getImageIcon(iconName) :
                 OWLIcons.getReadOnlyIndividualIcon(OWLIcons.getImageIcon(iconName));
@@ -463,11 +522,9 @@ public class DefaultRDFIndividual extends DefaultSimpleInstance implements RDFIn
         OWLUtil.setPropertyValue(this, property, value);
     }
 
-
     public void setPropertyValues(RDFProperty property, Collection values) {
         OWLUtil.setPropertyValues(this, property, values);
     }
-
 
     public void setProtegeType(RDFSClass type) {
         OWLUtil.setProtegeType(this, type);

@@ -42,7 +42,7 @@ public class UBBSignatureWidget extends TextFieldWidget {
         //System.out.println("Slot values: " + slotValue);
         validateSignature(newValue);
         //Value change will be executed in this given slot
-        RDFProperty classHierarchySlot = getSlot(UBBSlotNames.CLASS_HIERARCHY_URI);
+        RDFProperty classHierarchySlot = getSlot(UBBOntologyNamespaces.CLASS_HIERARCHY_URI);
         prepareValueChange(classHierarchySlot, newValue);
 
         return super.getValues();
@@ -88,7 +88,7 @@ public class UBBSignatureWidget extends TextFieldWidget {
             //Do not continue
             throw new IllegalArgumentException("URI [" + signature + "] is not a valid signature");
         */
-        } else if (slotValueExists(getSlot(UBBSlotNames.IDENTIFIER), signature)) {
+        } else if (slotValueExists(getSlot(UBBOntologyNamespaces.IDENTIFIER), signature)) {
             showErrorMessage("Signature \"" + signature + "\" already exists. Try another one");
             //Do not continue
             throw new IllegalArgumentException("Signature already exists for value [" + signature + "]");
